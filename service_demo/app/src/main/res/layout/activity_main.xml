@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -23,13 +22,25 @@
         android:id="@+id/btn3"
         android:text="绑定服务"
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="80dp" />
 
     <Button
         android:id="@+id/btn4"
         android:text="解绑服务"
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="80dp" />
+
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="开始服务1" />
+
+    <Button
+        android:id="@+id/btn6"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="停止服务2" />
 
 
 </LinearLayout>
