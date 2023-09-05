@@ -24,13 +24,16 @@
             android:name=".MyService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".services.DownloadService"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
