@@ -10,8 +10,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.koala.services.DownloadService;
-
 public class MainActivity extends AppCompatActivity {
 
     private final ServiceConnection serviceConnection = new ServiceConnection() {
@@ -22,12 +20,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-//            MyService.DownloadBinder downloadBinder = (MyService.DownloadBinder) service;
-//            downloadBinder.startDownload();
-//            downloadBinder.currentProgress();
+            MyService.DownloadBinder downloadBinder = (MyService.DownloadBinder) service;
+            downloadBinder.startDownload();
+            downloadBinder.currentProgress();
         }
     };
-    private DownloadService.DownloadBinder downloadBinder;
+    private MyService.DownloadBinder downloadBinder;
     private final ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Log.i(this.getClass().getName(), "connection");
-            downloadBinder = (DownloadService.DownloadBinder) service;
+            downloadBinder = (MyService.DownloadBinder) service;
         }
     };
     private Button btn1, btn2, btn3, btn4, btn5, btn6, btn7;
@@ -67,12 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
         btn3.setOnClickListener((v) -> {
             Intent intent = new Intent(this, MyService.class);
-            bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+            bindService(intent, connection, BIND_AUTO_CREATE);
         });
 
         btn4.setOnClickListener((v) -> {
 //            Intent intent = new Intent(this, MyService.class);
-            unbindService(serviceConnection);
+            unbindService(connection);
         });
 
         btn5.setOnClickListener((v) -> {
@@ -85,12 +83,16 @@ public class MainActivity extends AppCompatActivity {
             stopService(intent);
         });
 
-        Intent intent = new Intent(this, DownloadService.class);
-        startService(intent); // 启动服务
-        bindService(intent, connection, BIND_AUTO_CREATE); // 绑定服务
-        btn7.setOnClickListener((v) -> {
-            downloadBinder.startDownload("https://images.unsplash.com/photo-1682695798522-6e208131916d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3870&q=80");
+        btn7.setOnClickListener(v -> {
+            downloadBinder.startDownload();
         });
+
+//        Intent intent = new Intent(this, DownloadService.class);
+//        startService(intent); // 启动服务
+//        bindService(intent, connection, BIND_AUTO_CREATE); // 绑定服务
+//        btn7.setOnClickListener((v) -> {
+//            downloadBinder.startDownload("https://images.unsplash.com/photo-1682695798522-6e208131916d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=3870&q=80");
+//        });
 
     }
 }

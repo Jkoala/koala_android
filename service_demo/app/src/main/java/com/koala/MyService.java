@@ -6,9 +6,12 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+
 public class MyService extends Service {
 
-    private DownloadBinder downloadBinder = new DownloadBinder();
+    private final DownloadBinder downloadBinder = new DownloadBinder();
 
     public MyService() {
     }
@@ -26,23 +29,28 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        Log.i(this.getClass().getName(),"onDestroy");
+        Log.i(this.getClass().getName(), "onDestroy");
         super.onDestroy();
     }
 
+    @Override
+    protected void dump(FileDescriptor fd, PrintWriter writer, String[] args) {
+        writer.println("koala test dump");
+        super.dump(fd, writer, args);
+    }
+
     class DownloadBinder extends Binder {
-        public void startDownload(){
-            Log.i(this.getClass().getName(),"开始下载");
+        public void startDownload() {
+            Log.i(this.getClass().getName(), "开始下载");
         }
 
-        public void currentProgress(){
-            Log.i(this.getClass().getName(),"当前进度");
+        public void currentProgress() {
+            Log.i(this.getClass().getName(), "当前进度");
         }
     }
 
